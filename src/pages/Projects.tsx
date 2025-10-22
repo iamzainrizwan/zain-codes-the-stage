@@ -77,7 +77,12 @@ const Projects = () => {
         </div>
 
         <h3 className="text-lg font-semibold mb-2">Project Overview</h3>
-        <p>A comprehensive machine learning simulation built in Unity using C# to compare three distinct reinforcement learning algorithms: Deep Q-Networks (DQN), Proximal Policy Optimization (PPO), and NeuroEvolution of Augmenting Topologies (NEAT).</p>
+        <p>A comprehensive machine learning simulation built in Unity using C# to compare three distinct reinforcement learning algorithms:</p>
+        <ul>
+          <li>Deep Q-Networks (DQN)</li>
+          <li>Proximal Policy Optimization (PPO)</li>
+          <li>NeuroEvolution of Augmenting Topologies (NEAT)</li>
+        </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Technical Implementation</h3>
         <ul>
@@ -96,7 +101,12 @@ const Projects = () => {
         </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Results & Learnings</h3>
-        <p>The project demonstrated the trade-offs between different RL approaches. DQN showed stable but slower learning, PPO achieved the best sample efficiency, while NEAT explored diverse solutions but required careful population management. This hands-on comparison deepened my understanding of how different algorithms approach the exploration-exploitation dilemma.</p>
+        <ul>
+          <li><strong>DQN:</strong> Stable but slower learning with consistent convergence</li>
+          <li><strong>PPO:</strong> Best sample efficiency with balanced exploration</li>
+          <li><strong>NEAT:</strong> Diverse solutions but required careful population management</li>
+          <li>Deepened understanding of exploration-exploitation trade-offs across different algorithms</li>
+        </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Technologies Used</h3>
         <p>Unity 3D, C#, Custom ML Framework, Data Visualization Tools</p>
@@ -109,7 +119,12 @@ const Projects = () => {
         date="2024"
       >
         <h3 className="text-lg font-semibold mb-2">Project Overview</h3>
-        <p>Developed a communication system to facilitate reliable data transmission between a remote control unit and an aircraft, enabling real-time command and telemetry exchange.</p>
+        <p>Developed a communication system to facilitate reliable data transmission between a remote control unit and an aircraft.</p>
+        <ul>
+          <li>Real-time command transmission from remote to aircraft</li>
+          <li>Telemetry feedback from aircraft to remote control</li>
+          <li>Robust error detection and correction mechanisms</li>
+        </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Technical Implementation</h3>
         <ul>
@@ -128,7 +143,12 @@ const Projects = () => {
         </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Challenges & Solutions</h3>
-        <p>Addressed challenges including signal interference, packet loss, and latency constraints. Implemented automatic reconnection logic and redundant communication channels to ensure system reliability even in adverse conditions.</p>
+        <ul>
+          <li><strong>Signal Interference:</strong> Implemented frequency hopping and adaptive modulation</li>
+          <li><strong>Packet Loss:</strong> Built automatic retry mechanisms with acknowledgment protocols</li>
+          <li><strong>Latency Constraints:</strong> Optimized data encoding for minimal transmission time</li>
+          <li><strong>Reliability:</strong> Added redundant communication channels and automatic reconnection logic</li>
+        </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Technologies Used</h3>
         <p>Embedded Systems Programming, Wireless Communication Protocols, Real-time Operating Systems, Data Serialization</p>
@@ -152,7 +172,12 @@ const Projects = () => {
         </div>
 
         <h3 className="text-lg font-semibold mb-2">Project Overview</h3>
-        <p>StudyQuest is a gamified learning application designed to make educational content more engaging and interactive. The project combined software engineering principles with user experience design to create an accessible learning platform.</p>
+        <p>StudyQuest is a gamified learning application designed to make educational content more engaging and interactive.</p>
+        <ul>
+          <li>Combined software engineering principles with user experience design</li>
+          <li>Created an accessible learning platform with game mechanics</li>
+          <li>Focused on increasing student engagement through interactive content</li>
+        </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Development Process</h3>
         <ul>
@@ -171,10 +196,20 @@ const Projects = () => {
         </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Technical Approach</h3>
-        <p>Applied software engineering principles including separation of concerns, modular design, and object-oriented programming. The architecture was designed to be extensible, allowing for future features like multiplayer modes and adaptive difficulty.</p>
+        <ul>
+          <li>Separation of concerns for clean, maintainable codebase</li>
+          <li>Modular design allowing easy addition of new content</li>
+          <li>Object-oriented programming principles throughout</li>
+          <li>Extensible architecture for future features (multiplayer, adaptive difficulty)</li>
+        </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Impact & Learnings</h3>
-        <p>The project reinforced the importance of user-centered design and the value of thorough planning before implementation. It demonstrated how gamification can increase engagement while maintaining educational value.</p>
+        <ul>
+          <li>Reinforced importance of user-centered design in educational software</li>
+          <li>Demonstrated value of thorough planning before implementation</li>
+          <li>Showed how gamification increases engagement without sacrificing educational value</li>
+          <li>Developed skills in iterative design and user feedback incorporation</li>
+        </ul>
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Technologies Used</h3>
         <p>C#, Figma, Object-Oriented Design, User Research Methodologies</p>

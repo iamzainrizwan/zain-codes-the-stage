@@ -35,7 +35,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-20 pb-16">
+    <div className="min-h-screen pt-20 pb-16 bg-gradient-to-b from-background via-primary/5 to-background">
       <div className="container mx-auto px-6">
         {/* Hero Section */}
         <section className="py-20 animate-fade-in">
