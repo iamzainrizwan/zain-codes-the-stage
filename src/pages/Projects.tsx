@@ -17,6 +17,13 @@ const Projects = () => {
       github: "https://github.com/iamzainrizwan/LearningAlgorithmsUnity"
     },
     {
+      id: "aircraft-comms",
+      title: "Aircraft Remote Communication System",
+      date: "2024",
+      description: "Communication protocol implementation for remote-aircraft data transmission",
+      tags: ["Embedded Systems", "Communications", "Real-time Systems"],
+    },
+    {
       id: "studyquest",
       title: "Pathway To Bath: StudyQuest",
       date: "2024",
@@ -93,6 +100,38 @@ const Projects = () => {
 
         <h3 className="text-lg font-semibold mt-4 mb-2">Technologies Used</h3>
         <p>Unity 3D, C#, Custom ML Framework, Data Visualization Tools</p>
+      </ContentModal>
+
+      <ContentModal
+        open={selectedProject === "aircraft-comms"}
+        onOpenChange={(open) => !open && setSelectedProject(null)}
+        title="Aircraft Remote Communication System"
+        date="2024"
+      >
+        <h3 className="text-lg font-semibold mb-2">Project Overview</h3>
+        <p>Developed a communication system to facilitate reliable data transmission between a remote control unit and an aircraft, enabling real-time command and telemetry exchange.</p>
+
+        <h3 className="text-lg font-semibold mt-4 mb-2">Technical Implementation</h3>
+        <ul>
+          <li><strong>Communication Protocol:</strong> Designed and implemented custom protocol for bidirectional data exchange</li>
+          <li><strong>Real-time Systems:</strong> Ensured low-latency command transmission and telemetry feedback</li>
+          <li><strong>Error Handling:</strong> Built robust error detection and correction mechanisms for reliable communication</li>
+          <li><strong>Data Encoding:</strong> Implemented efficient data serialization for minimal bandwidth usage</li>
+        </ul>
+
+        <h3 className="text-lg font-semibold mt-4 mb-2">Key Features</h3>
+        <ul>
+          <li>Bidirectional communication between remote and aircraft systems</li>
+          <li>Real-time telemetry data transmission (altitude, speed, battery, GPS)</li>
+          <li>Command execution with acknowledgment and retry mechanisms</li>
+          <li>Signal quality monitoring and adaptive transmission rates</li>
+        </ul>
+
+        <h3 className="text-lg font-semibold mt-4 mb-2">Challenges & Solutions</h3>
+        <p>Addressed challenges including signal interference, packet loss, and latency constraints. Implemented automatic reconnection logic and redundant communication channels to ensure system reliability even in adverse conditions.</p>
+
+        <h3 className="text-lg font-semibold mt-4 mb-2">Technologies Used</h3>
+        <p>Embedded Systems Programming, Wireless Communication Protocols, Real-time Operating Systems, Data Serialization</p>
       </ContentModal>
 
       <ContentModal
