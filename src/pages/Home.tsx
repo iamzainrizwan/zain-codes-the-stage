@@ -39,18 +39,23 @@ const Home = () => {
       <div className="container mx-auto px-6">
         {/* Hero Section */}
         <section className="py-20 animate-fade-in">
-          <div className="max-w-3xl bg-primary/10 border border-primary/20 rounded-lg p-8">
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">
-              Zain Rizwan
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              aspiring software engineer @ King's College London
-            </p>
-            <p className="text-base text-muted-foreground mb-8 leading-relaxed">
-              building intelligent systems & exploring the intersection of machine learning, 
-              cloud infrastructure, and user experience design. passionate about creating 
-              impactful solutions through code.
-            </p>
+          <div className="max-w-3xl relative">
+            {/* Animated gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 rounded-lg blur-xl animate-glow"></div>
+            
+            {/* Content container */}
+            <div className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 border border-primary/30 rounded-lg p-8 backdrop-blur-sm">
+              <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-foreground via-accent to-foreground bg-clip-text text-transparent">
+                Zain Rizwan
+              </h1>
+              <p className="text-xl text-muted-foreground mb-8">
+                aspiring software engineer @ King's College London
+              </p>
+              <p className="text-base text-muted-foreground mb-8 leading-relaxed">
+                building intelligent systems & exploring the intersection of machine learning, 
+                cloud infrastructure, and user experience design. passionate about creating 
+                impactful solutions through code.
+              </p>
             <div className="flex gap-4 items-center">
               <a 
                 href="https://github.com/iamzainrizwan" 
@@ -76,6 +81,7 @@ const Home = () => {
               </a>
             </div>
           </div>
+        </div>
         </section>
 
         {/* Recent Highlights */}
