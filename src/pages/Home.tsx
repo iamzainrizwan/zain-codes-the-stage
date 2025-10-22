@@ -39,7 +39,7 @@ const Home = () => {
       <div className="container mx-auto px-6">
         {/* Hero Section */}
         <section className="py-20 animate-fade-in">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl bg-primary/10 border border-primary/20 rounded-lg p-8">
             <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">
               Zain Rizwan
             </h1>
