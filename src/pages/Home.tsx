@@ -38,8 +38,18 @@ const Home = () => {
     <div className="min-h-screen pt-20 pb-16 bg-gradient-to-b from-background via-primary/5 to-background">
       <div className="container mx-auto px-6">
         {/* Hero Section */}
-        <section className="py-20 animate-fade-in">
-          <div className="max-w-3xl relative">
+        <section className="py-20 animate-fade-in relative">
+          {/* Full-page horizontal scan line */}
+          <div 
+            className="fixed inset-0 pointer-events-none overflow-hidden z-10"
+          >
+            <div 
+              className="absolute h-full w-32 bg-gradient-to-r from-transparent via-accent/20 to-transparent animate-scan-line"
+              style={{ filter: 'blur(4px)' }}
+            ></div>
+          </div>
+
+          <div className="max-w-3xl relative mx-auto">
             {/* Cyberpunk grid background */}
             <div 
               className="absolute inset-0 opacity-20 animate-grid-flow"
@@ -52,17 +62,6 @@ const Home = () => {
             {/* Neon glow layers */}
             <div className="absolute -inset-4 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 blur-2xl animate-cyber-pulse"></div>
             <div className="absolute -inset-2 bg-gradient-to-br from-accent/20 via-transparent to-primary/20 blur-xl"></div>
-            
-            {/* Scan line effect */}
-            <div 
-              className="absolute inset-0 pointer-events-none overflow-hidden"
-              style={{ clipPath: 'inset(0 0 0 0)' }}
-            >
-              <div 
-                className="absolute w-full h-32 bg-gradient-to-b from-transparent via-accent/10 to-transparent animate-scan-line"
-                style={{ filter: 'blur(2px)' }}
-              ></div>
-            </div>
             
             {/* Content container */}
             <div className="relative bg-black/40 border-2 border-primary/50 p-8 backdrop-blur-md overflow-hidden"

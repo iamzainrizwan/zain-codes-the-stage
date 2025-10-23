@@ -116,8 +116,8 @@ export default {
           },
         },
         scanLine: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100vh)" },
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100vw)" },
         },
         gridFlow: {
           "0%": { backgroundPosition: "0 0" },
