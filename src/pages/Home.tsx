@@ -41,11 +41,11 @@ const Home = () => {
         <section className="py-20 animate-fade-in relative">
           {/* Full-page horizontal scan line */}
           <div 
-            className="fixed inset-0 pointer-events-none overflow-hidden z-10"
+            className="fixed inset-0 pointer-events-none overflow-hidden z-0"
           >
             <div 
-              className="absolute h-full w-32 bg-gradient-to-r from-transparent via-accent/20 to-transparent animate-scan-line"
-              style={{ filter: 'blur(4px)' }}
+              className="absolute h-full w-96 bg-gradient-to-r from-transparent via-accent/20 to-transparent animate-scan-line"
+              style={{ filter: 'blur(8px)' }}
             ></div>
           </div>
 
