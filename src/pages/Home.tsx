@@ -40,12 +40,41 @@ const Home = () => {
         {/* Hero Section */}
         <section className="py-20 animate-fade-in">
           <div className="max-w-3xl relative">
-            {/* Animated gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 rounded-lg blur-xl animate-glow"></div>
+            {/* Cyberpunk grid background */}
+            <div 
+              className="absolute inset-0 opacity-20 animate-grid-flow"
+              style={{
+                backgroundImage: 'linear-gradient(hsl(var(--cyber-cyan) / 0.3) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--cyber-cyan) / 0.3) 1px, transparent 1px)',
+                backgroundSize: '50px 50px'
+              }}
+            ></div>
+            
+            {/* Neon glow layers */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 blur-2xl animate-cyber-pulse"></div>
+            <div className="absolute -inset-2 bg-gradient-to-br from-accent/20 via-transparent to-primary/20 blur-xl"></div>
+            
+            {/* Scan line effect */}
+            <div 
+              className="absolute inset-0 pointer-events-none overflow-hidden"
+              style={{ clipPath: 'inset(0 0 0 0)' }}
+            >
+              <div 
+                className="absolute w-full h-32 bg-gradient-to-b from-transparent via-accent/10 to-transparent animate-scan-line"
+                style={{ filter: 'blur(2px)' }}
+              ></div>
+            </div>
             
             {/* Content container */}
-            <div className="relative bg-gradient-to-br from-primary/5 via-background to-primary/10 border border-primary/30 rounded-lg p-8 backdrop-blur-sm">
-              <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-foreground via-accent to-foreground bg-clip-text text-transparent">
+            <div className="relative bg-black/40 border-2 border-primary/50 p-8 backdrop-blur-md overflow-hidden"
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))'
+              }}
+            >
+              {/* Corner accents */}
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-accent"></div>
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-accent"></div>
+              
+              <h1 className="text-5xl font-bold mb-4 text-accent drop-shadow-[0_0_15px_rgba(167,139,250,0.7)]">
                 Zain Rizwan
               </h1>
               <p className="text-xl text-muted-foreground mb-8">

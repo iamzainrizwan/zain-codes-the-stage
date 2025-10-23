@@ -90,6 +90,9 @@ export default {
         "fade-in": "fadeIn 0.5s ease-out",
         "slide-up": "slideUp 0.4s ease-out",
         "glow": "glow 2s ease-in-out infinite",
+        "cyber-pulse": "cyberPulse 3s ease-in-out infinite",
+        "scan-line": "scanLine 8s linear infinite",
+        "grid-flow": "gridFlow 20s linear infinite",
       },
       keyframes: {
         fadeIn: {
@@ -103,6 +106,22 @@ export default {
         glow: {
           "0%, 100%": { boxShadow: "0 0 20px rgba(167, 139, 250, 0.3)" },
           "50%": { boxShadow: "0 0 30px rgba(167, 139, 250, 0.6)" },
+        },
+        cyberPulse: {
+          "0%, 100%": { 
+            boxShadow: "0 0 20px rgba(167, 139, 250, 0.5), 0 0 40px rgba(167, 139, 250, 0.3), inset 0 0 20px rgba(167, 139, 250, 0.1)" 
+          },
+          "50%": { 
+            boxShadow: "0 0 40px rgba(167, 139, 250, 0.8), 0 0 80px rgba(167, 139, 250, 0.5), inset 0 0 30px rgba(167, 139, 250, 0.2)" 
+          },
+        },
+        scanLine: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100vh)" },
+        },
+        gridFlow: {
+          "0%": { backgroundPosition: "0 0" },
+          "100%": { backgroundPosition: "50px 50px" },
         },
       },
     },
