@@ -1,11 +1,20 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import ContentCard from "@/components/ContentCard";
 import ContentModal from "@/components/ContentModal";
 
 const Home = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  useEffect(() => {
+    const openParam = searchParams.get("open");
+    if (openParam) {
+      setSelectedItem(openParam);
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const recentHighlights = [
     {
