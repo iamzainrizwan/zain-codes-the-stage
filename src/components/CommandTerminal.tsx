@@ -19,34 +19,39 @@ const routes = [
 
 const contentItems = [
   // Home page items
-  { id: "puzzled", name: "puzzled", page: "/", description: "KCL Puzzled Competition Winner" },
-  { id: "rl-sim", name: "rl-sim", page: "/", description: "Reinforcement Learning Simulation" },
-  { id: "elecosoft", name: "elecosoft", page: "/", description: "Azure Infrastructure Internship" },
+  { id: "puzzled", path: "home/puzzled", page: "/", description: "KCL Puzzled Competition Winner" },
+  { id: "rl-sim", path: "home/rl-sim", page: "/", description: "Reinforcement Learning Simulation" },
+  { id: "elecosoft-highlight", path: "home/elecosoft", page: "/", description: "Azure Infrastructure Internship" },
   // Work page items
-  { id: "elecosoft", name: "elecosoft", page: "/work", description: "Elecosoft Internship" },
-  { id: "shell", name: "shell", page: "/work", description: "Shell Work Experience" },
-  { id: "microsoft", name: "microsoft", page: "/work", description: "Microsoft Work Experience" },
+  { id: "elecosoft", path: "work/elecosoft", page: "/work", description: "Elecosoft Internship" },
+  { id: "shell", path: "work/shell", page: "/work", description: "Shell Work Experience" },
+  { id: "microsoft", path: "work/microsoft", page: "/work", description: "Microsoft Work Experience" },
   // Projects page items
-  { id: "rl-sim", name: "rl-sim", page: "/projects", description: "RL Simulation Project" },
-  { id: "aircraft-comms", name: "aircraft-comms", page: "/projects", description: "Aircraft Communication System" },
-  { id: "studyquest", name: "studyquest", page: "/projects", description: "StudyQuest Learning App" },
+  { id: "rl-sim", path: "projects/rl-sim", page: "/projects", description: "RL Simulation Project" },
+  { id: "aircraft-comms", path: "projects/aircraft-comms", page: "/projects", description: "Aircraft Communication System" },
+  { id: "studyquest", path: "projects/studyquest", page: "/projects", description: "StudyQuest Learning App" },
   // Theatre page items
-  { id: "lgs-tech", name: "lgs-tech", page: "/theatre", description: "LGS Lead Technician" },
-  { id: "bett-show", name: "bett-show", page: "/theatre", description: "BETT Show Representative" },
-  { id: "esports", name: "esports", page: "/theatre", description: "Esports Team Mentor" },
-  { id: "uber-hack", name: "uber-hack", page: "/theatre", description: "Uber Hackathon Finalist" },
+  { id: "lgs-tech", path: "theatre/lgs-tech", page: "/theatre", description: "LGS Lead Technician" },
+  { id: "bett-show", path: "theatre/bett-show", page: "/theatre", description: "BETT Show Representative" },
+  { id: "esports", path: "theatre/esports", page: "/theatre", description: "Esports Team Mentor" },
+  { id: "uber-hack", path: "theatre/uber-hack", page: "/theatre", description: "Uber Hackathon Finalist" },
+  { id: "puzzled-theatre", path: "theatre/puzzled", page: "/theatre", description: "KCL Puzzled Winner" },
 ];
 
-// Get unique content items (remove duplicates)
+// Get unique content items by path
 const uniqueContentItems = contentItems.filter((item, index, self) =>
-  index === self.findIndex((t) => t.id === item.id)
+  index === self.findIndex((t) => t.path === item.path)
 );
+
+// Get items for a specific page
+const getItemsForPage = (pageName: string) => 
+  contentItems.filter(item => item.path.startsWith(`${pageName}/`));
 
 const commands = [
   { name: "help", description: "Show available commands" },
-  { name: "ls", description: "List all pages and items" },
-  { name: "cd <path>", description: "Navigate to page or open item (e.g., cd work, cd puzzled)" },
-  { name: "pwd", description: "Show current page" },
+  { name: "ls", description: "List contents of current directory" },
+  { name: "cd <path>", description: "Navigate (e.g., cd work, cd work/elecosoft)" },
+  { name: "pwd", description: "Show current location" },
   { name: "clear", description: "Close terminal" },
   { name: "whoami", description: "About Zain" },
 ];
@@ -87,38 +92,73 @@ const CommandTerminal = () => {
         break;
 
       case "ls":
-        setOutput([
-          "Pages:",
-          ...routes.map(r => `  ${r.name.padEnd(12)} ${r.path}`),
-          "",
-          "Items:",
-          ...uniqueContentItems.map(c => `  ${c.name.padEnd(16)} ${c.description}`),
-        ]);
+        const currentPageName = location.pathname === "/" ? "home" : location.pathname.slice(1);
+        const currentPageItems = getItemsForPage(currentPageName);
+        
+        if (currentPageItems.length > 0) {
+          setOutput([
+            `Contents of /${currentPageName}:`,
+            "",
+            "Directories:",
+            ...routes.filter(r => r.name !== currentPageName).map(r => `  📁 ${r.name}/`),
+            "",
+            "Files:",
+            ...currentPageItems.map(c => `  📄 ${c.path.split('/')[1]}`),
+          ]);
+        } else {
+          setOutput([
+            "Directories:",
+            ...routes.map(r => `  📁 ${r.name}/`),
+          ]);
+        }
         break;
 
       case "cd":
-        if (!arg) {
+        if (!arg || arg === "~" || arg === "/") {
           navigate("/");
           setOpen(false);
           return;
         }
-        // First check if it's a content item
-        const item = contentItems.find(c => c.id === arg || c.name === arg);
+        
+        // Handle ".." to go up
+        if (arg === "..") {
+          navigate("/");
+          setOpen(false);
+          return;
+        }
+
+        // Normalize path (remove leading/trailing slashes)
+        const normalizedPath = arg.replace(/^\/+|\/+$/g, '');
+        
+        // Check if it's a full path to an item (e.g., work/elecosoft)
+        const item = contentItems.find(c => c.path === normalizedPath);
         if (item) {
           navigate(`${item.page}?open=${item.id}`);
           setOpen(false);
           break;
         }
-        // Then check if it's a page
+        
+        // Check if it's just a page name
         const route = routes.find(r => 
-          r.name === arg || r.path === `/${arg}` || r.path === arg
+          r.name === normalizedPath || r.path === `/${normalizedPath}`
         );
         if (route) {
           navigate(route.path);
           setOpen(false);
-        } else {
-          setOutput([`bash: cd: ${arg}: No such file or directory`, "Type 'ls' to see available paths"]);
+          break;
         }
+
+        // Check if it's a relative path from current page (e.g., just "elecosoft" when on /work)
+        const currentPage = location.pathname === "/" ? "home" : location.pathname.slice(1);
+        const relativePath = `${currentPage}/${normalizedPath}`;
+        const relativeItem = contentItems.find(c => c.path === relativePath);
+        if (relativeItem) {
+          navigate(`${relativeItem.page}?open=${relativeItem.id}`);
+          setOpen(false);
+          break;
+        }
+
+        setOutput([`bash: cd: ${arg}: No such file or directory`, "Type 'ls' to see available paths"]);
         break;
 
       case "pwd":
@@ -184,7 +224,7 @@ const CommandTerminal = () => {
               <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
               <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
             </div>
-            <span className="text-primary/70 text-sm ml-2">zain@portfolio:~{location.pathname}</span>
+            <span className="text-primary/70 text-sm ml-2">zain@portfolio:~{location.pathname === "/" ? "/home" : location.pathname}</span>
           </div>
 
           {/* Output area */}
@@ -230,8 +270,8 @@ const CommandTerminal = () => {
             <CommandGroup heading="Content" className="text-primary/70">
               {uniqueContentItems.slice(0, 6).map((item) => (
                 <CommandItem
-                  key={item.id}
-                  value={`cd ${item.name}`}
+                  key={item.path}
+                  value={`cd ${item.path}`}
                   onSelect={() => {
                     navigate(`${item.page}?open=${item.id}`);
                     setOpen(false);
@@ -239,7 +279,7 @@ const CommandTerminal = () => {
                   className="text-accent/90 hover:bg-primary/20 cursor-pointer"
                 >
                   <FileText className="mr-2 h-4 w-4 text-primary" />
-                  <span>cd {item.name}</span>
+                  <span>cd {item.path}</span>
                   <span className="ml-auto text-xs text-muted-foreground">{item.description}</span>
                 </CommandItem>
               ))}
