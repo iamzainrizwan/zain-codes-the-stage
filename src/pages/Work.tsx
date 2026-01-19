@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ContentCard from "@/components/ContentCard";
 import ContentModal from "@/components/ContentModal";
 
 const Work = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedWork, setSelectedWork] = useState<string | null>(null);
+
+  useEffect(() => {
+    const openParam = searchParams.get("open");
+    if (openParam) {
+      setSelectedWork(openParam);
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const workExperience = [
     {

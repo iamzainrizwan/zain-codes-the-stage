@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ContentCard from "@/components/ContentCard";
 import ContentModal from "@/components/ContentModal";
 import { ExternalLink } from "lucide-react";
 
 const Projects = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+
+  useEffect(() => {
+    const openParam = searchParams.get("open");
+    if (openParam) {
+      setSelectedProject(openParam);
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const projects = [
     {

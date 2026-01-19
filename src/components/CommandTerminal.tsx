@@ -8,7 +8,7 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
-import { Terminal, Home, Briefcase, FolderOpen, Theater, HelpCircle } from "lucide-react";
+import { Terminal, Home, Briefcase, FolderOpen, Theater, HelpCircle, FileText } from "lucide-react";
 
 const routes = [
   { path: "/", name: "home", icon: Home, description: "Go to home page" },
@@ -17,10 +17,37 @@ const routes = [
   { path: "/theatre", name: "theatre", icon: Theater, description: "Theatre tech portfolio" },
 ];
 
+const contentItems = [
+  // Home page items
+  { id: "puzzled", name: "puzzled", page: "/", description: "KCL Puzzled Competition Winner" },
+  { id: "rl-sim", name: "rl-sim", page: "/", description: "Reinforcement Learning Simulation" },
+  { id: "elecosoft", name: "elecosoft", page: "/", description: "Azure Infrastructure Internship" },
+  // Work page items
+  { id: "elecosoft", name: "elecosoft", page: "/work", description: "Elecosoft Internship" },
+  { id: "shell", name: "shell", page: "/work", description: "Shell Work Experience" },
+  { id: "microsoft", name: "microsoft", page: "/work", description: "Microsoft Work Experience" },
+  // Projects page items
+  { id: "rl-sim", name: "rl-sim", page: "/projects", description: "RL Simulation Project" },
+  { id: "aircraft-comms", name: "aircraft-comms", page: "/projects", description: "Aircraft Communication System" },
+  { id: "studyquest", name: "studyquest", page: "/projects", description: "StudyQuest Learning App" },
+  // Theatre page items
+  { id: "lgs-tech", name: "lgs-tech", page: "/theatre", description: "LGS Lead Technician" },
+  { id: "bett-show", name: "bett-show", page: "/theatre", description: "BETT Show Representative" },
+  { id: "esports", name: "esports", page: "/theatre", description: "Esports Team Mentor" },
+  { id: "uber-hack", name: "uber-hack", page: "/theatre", description: "Uber Hackathon Finalist" },
+];
+
+// Get unique content items (remove duplicates)
+const uniqueContentItems = contentItems.filter((item, index, self) =>
+  index === self.findIndex((t) => t.id === item.id)
+);
+
 const commands = [
   { name: "help", description: "Show available commands" },
   { name: "ls", description: "List all pages" },
+  { name: "ls -a", description: "List all content items" },
   { name: "cd <page>", description: "Navigate to a page (e.g., cd work)" },
+  { name: "open <item>", description: "Open a post (e.g., open puzzled)" },
   { name: "pwd", description: "Show current page" },
   { name: "clear", description: "Close terminal" },
   { name: "whoami", description: "About Zain" },
@@ -62,10 +89,19 @@ const CommandTerminal = () => {
         break;
 
       case "ls":
-        setOutput([
-          "Pages:",
-          ...routes.map(r => `  ${r.name.padEnd(12)} ${r.path}`),
-        ]);
+        if (arg === "-a") {
+          setOutput([
+            "Content items:",
+            ...uniqueContentItems.map(c => `  ${c.name.padEnd(16)} ${c.description}`),
+          ]);
+        } else {
+          setOutput([
+            "Pages:",
+            ...routes.map(r => `  ${r.name.padEnd(12)} ${r.path}`),
+            "",
+            "Use 'ls -a' to list all content items"
+          ]);
+        }
         break;
 
       case "cd":
@@ -82,6 +118,20 @@ const CommandTerminal = () => {
           setOpen(false);
         } else {
           setOutput([`bash: cd: ${arg}: No such directory`]);
+        }
+        break;
+
+      case "open":
+        if (!arg) {
+          setOutput(["Usage: open <item>", "Use 'ls -a' to see available items"]);
+          break;
+        }
+        const item = contentItems.find(c => c.id === arg || c.name === arg);
+        if (item) {
+          navigate(`${item.page}?open=${item.id}`);
+          setOpen(false);
+        } else {
+          setOutput([`bash: open: ${arg}: No such item`, "Use 'ls -a' to see available items"]);
         }
         break;
 
@@ -187,6 +237,24 @@ const CommandTerminal = () => {
                   <route.icon className="mr-2 h-4 w-4 text-primary" />
                   <span>cd {route.name}</span>
                   <span className="ml-auto text-xs text-muted-foreground">{route.description}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+
+            <CommandGroup heading="Content" className="text-primary/70">
+              {uniqueContentItems.slice(0, 6).map((item) => (
+                <CommandItem
+                  key={item.id}
+                  value={`open ${item.name}`}
+                  onSelect={() => {
+                    navigate(`${item.page}?open=${item.id}`);
+                    setOpen(false);
+                  }}
+                  className="text-accent/90 hover:bg-primary/20 cursor-pointer"
+                >
+                  <FileText className="mr-2 h-4 w-4 text-primary" />
+                  <span>open {item.name}</span>
+                  <span className="ml-auto text-xs text-muted-foreground">{item.description}</span>
                 </CommandItem>
               ))}
             </CommandGroup>

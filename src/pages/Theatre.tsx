@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ContentCard from "@/components/ContentCard";
 import ContentModal from "@/components/ContentModal";
 
 const Theatre = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  useEffect(() => {
+    const openParam = searchParams.get("open");
+    if (openParam) {
+      setSelectedItem(openParam);
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const achievements = [
     {
