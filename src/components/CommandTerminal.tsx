@@ -44,10 +44,8 @@ const uniqueContentItems = contentItems.filter((item, index, self) =>
 
 const commands = [
   { name: "help", description: "Show available commands" },
-  { name: "ls", description: "List all pages" },
-  { name: "ls -a", description: "List all content items" },
-  { name: "cd <page>", description: "Navigate to a page (e.g., cd work)" },
-  { name: "open <item>", description: "Open a post (e.g., open puzzled)" },
+  { name: "ls", description: "List all pages and items" },
+  { name: "cd <path>", description: "Navigate to page or open item (e.g., cd work, cd puzzled)" },
   { name: "pwd", description: "Show current page" },
   { name: "clear", description: "Close terminal" },
   { name: "whoami", description: "About Zain" },
@@ -89,19 +87,13 @@ const CommandTerminal = () => {
         break;
 
       case "ls":
-        if (arg === "-a") {
-          setOutput([
-            "Content items:",
-            ...uniqueContentItems.map(c => `  ${c.name.padEnd(16)} ${c.description}`),
-          ]);
-        } else {
-          setOutput([
-            "Pages:",
-            ...routes.map(r => `  ${r.name.padEnd(12)} ${r.path}`),
-            "",
-            "Use 'ls -a' to list all content items"
-          ]);
-        }
+        setOutput([
+          "Pages:",
+          ...routes.map(r => `  ${r.name.padEnd(12)} ${r.path}`),
+          "",
+          "Items:",
+          ...uniqueContentItems.map(c => `  ${c.name.padEnd(16)} ${c.description}`),
+        ]);
         break;
 
       case "cd":
@@ -110,6 +102,14 @@ const CommandTerminal = () => {
           setOpen(false);
           return;
         }
+        // First check if it's a content item
+        const item = contentItems.find(c => c.id === arg || c.name === arg);
+        if (item) {
+          navigate(`${item.page}?open=${item.id}`);
+          setOpen(false);
+          break;
+        }
+        // Then check if it's a page
         const route = routes.find(r => 
           r.name === arg || r.path === `/${arg}` || r.path === arg
         );
@@ -117,21 +117,7 @@ const CommandTerminal = () => {
           navigate(route.path);
           setOpen(false);
         } else {
-          setOutput([`bash: cd: ${arg}: No such directory`]);
-        }
-        break;
-
-      case "open":
-        if (!arg) {
-          setOutput(["Usage: open <item>", "Use 'ls -a' to see available items"]);
-          break;
-        }
-        const item = contentItems.find(c => c.id === arg || c.name === arg);
-        if (item) {
-          navigate(`${item.page}?open=${item.id}`);
-          setOpen(false);
-        } else {
-          setOutput([`bash: open: ${arg}: No such item`, "Use 'ls -a' to see available items"]);
+          setOutput([`bash: cd: ${arg}: No such file or directory`, "Type 'ls' to see available paths"]);
         }
         break;
 
@@ -245,7 +231,7 @@ const CommandTerminal = () => {
               {uniqueContentItems.slice(0, 6).map((item) => (
                 <CommandItem
                   key={item.id}
-                  value={`open ${item.name}`}
+                  value={`cd ${item.name}`}
                   onSelect={() => {
                     navigate(`${item.page}?open=${item.id}`);
                     setOpen(false);
@@ -253,7 +239,7 @@ const CommandTerminal = () => {
                   className="text-accent/90 hover:bg-primary/20 cursor-pointer"
                 >
                   <FileText className="mr-2 h-4 w-4 text-primary" />
-                  <span>open {item.name}</span>
+                  <span>cd {item.name}</span>
                   <span className="ml-auto text-xs text-muted-foreground">{item.description}</span>
                 </CommandItem>
               ))}
