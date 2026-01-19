@@ -9,6 +9,7 @@ import Projects from "./pages/Projects";
 import Theatre from "./pages/Theatre";
 import NotFound from "./pages/NotFound";
 import Navigation from "./components/Navigation";
+import CommandTerminal from "./components/CommandTerminal";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Navigation />
+        <CommandTerminal />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/work" element={<Work />} />
